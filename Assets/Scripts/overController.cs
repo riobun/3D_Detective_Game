@@ -19,8 +19,8 @@ public class overController : MonoBehaviour
         if (flowchart.GetBooleanVariable("退出游戏"))
         {
 
-            UnityEditor.EditorApplication.isPlaying = false;
-            //Application.Quit();
+            //UnityEditor.EditorApplication.isPlaying = false;
+            Application.Quit();
             flowchart.SetBooleanVariable("退出游戏", false);
         }
     }

@@ -10,6 +10,7 @@ public class GameUI : MonoBehaviour
     public GameObject sceneDislay;
     public GameObject clueDislay;
     public GameObject truthDisplay;
+    public GameObject cluePanel;
 
     private List<bagItem> bagItemList;
 
@@ -18,6 +19,8 @@ public class GameUI : MonoBehaviour
     {
         NewItemManager.Instance.loadItemConfig();
         this.bagItemList = NewItemManager.Instance.bagItemList;
+
+        //cluePanel.SetActive(true);
 
         
     }
@@ -81,6 +84,11 @@ public class GameUI : MonoBehaviour
         clueDislay.SetActive(false);
     }
 
+    public void disactivefindclue()
+    {
+        cluePanel.SetActive(false);
+    }
+
     public void toHospital()
     {
         SceneManager.LoadScene(6);      
@@ -116,8 +124,8 @@ public class GameUI : MonoBehaviour
 
     public void gameOver()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
-        //Application.Quit();
+        //UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
     public List<string> findClue(int id)
