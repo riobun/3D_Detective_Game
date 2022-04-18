@@ -15,7 +15,7 @@ public class musicPause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Z))
 
         {
             Orange.Stop();//当按下R键，音乐停止，点击U时重头开始播放音乐

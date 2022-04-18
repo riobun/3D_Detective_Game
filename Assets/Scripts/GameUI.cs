@@ -10,7 +10,11 @@ public class GameUI : MonoBehaviour
     public GameObject sceneDislay;
     public GameObject clueDislay;
     public GameObject truthDisplay;
+    public GameObject helpDisplay;
+
     public GameObject cluePanel;
+    public GameObject clueTitle;
+    public GameObject clueDetail;
 
     private List<bagItem> bagItemList;
 
@@ -54,6 +58,16 @@ public class GameUI : MonoBehaviour
         bookDisplay.SetActive(false);
     }
 
+    public void activeHelp()
+    {
+        helpDisplay.SetActive(true);
+    }
+
+    public void disactiveHelp()
+    {
+        helpDisplay.SetActive(false);
+    }
+
     public void activeTruth()
     {
         truthDisplay.SetActive(true);
@@ -89,38 +103,6 @@ public class GameUI : MonoBehaviour
         cluePanel.SetActive(false);
     }
 
-    public void toHospital()
-    {
-        SceneManager.LoadScene(6);      
-    }
-
-    public void toDIDI()
-    {
-        SceneManager.LoadScene(5);
-    }
-
-    public void toLi()
-    {
-        SceneManager.LoadScene(3);
-    }
-
-    public void toDinnerHall()
-    {
-        SceneManager.LoadScene(1);
-    }
-    public void toBoss()
-    {
-        SceneManager.LoadScene(7);
-    }
-    public void toLab()
-    {
-        SceneManager.LoadScene(4);
-    }
-
-    public void toOver()
-    {
-        SceneManager.LoadScene(2);
-    }
 
     public void gameOver()
     {
@@ -134,6 +116,8 @@ public class GameUI : MonoBehaviour
         List<string> itemInfo = new List<string>();
         itemInfo.Add(this.bagItemList[id - 1].name);
         itemInfo.Add(this.bagItemList[id - 1].desc);
+        //Debug.Log(itemInfo[0]);
+        //Debug.Log(itemInfo[1]);
         return itemInfo;
     }
 }

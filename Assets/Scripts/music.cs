@@ -19,12 +19,11 @@ public class music : MonoBehaviour
         this.scene = SceneManager.GetActiveScene();
     }
 
-    // Update is called once per frame
+    // Update is called once per frame ,this.scene.buildIndex == 2
     void Update()
     {
         this.scene = SceneManager.GetActiveScene();
-        if (this.scene.buildIndex == 2)
-
+        if (this.scene.name == "End")
         {
             if (play == true)
                 return;
