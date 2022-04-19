@@ -45,7 +45,21 @@ public class GameUI : MonoBehaviour
                 lab2.SetActive(true);
             }
         }
+
+        Scene scene = SceneManager.GetActiveScene();
+        if(scene.name == "Hospital" && this.bagItemList[18].isFind == 0)
+        {
+            Invoke("findAutopsy", 1);
+        }
         
+    }
+
+    private void findAutopsy()
+    {
+        this.bagItemList[18].isFind = 1;
+        this.clueTitle.GetComponent<Text>().text = this.bagItemList[18].name;
+        this.clueDetail.GetComponent<Text>().text = this.bagItemList[18].desc;
+        this.cluePanel.gameObject.SetActive(true);
     }
 
     public void activeBook()
