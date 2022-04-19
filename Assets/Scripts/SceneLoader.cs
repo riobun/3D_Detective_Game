@@ -70,7 +70,7 @@ public class SceneLoader : MonoBehaviour
 
     private void ToBoss()
     {
-        StartCoroutine(LoadScene("Mr.Zhen"));
+        StartCoroutine(LoadScene("ZhenBoss"));
 
     }
 
