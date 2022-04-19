@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ComputerMail : MonoBehaviour
+public class ComputerMail : MonoBehaviour, IPointerClickHandler
 {
     private GameObject panel;
     private GameObject title;
@@ -16,9 +17,8 @@ public class ComputerMail : MonoBehaviour
 
     }
 
-    public void OnMouseDown()
+    public void OnPointerClick(PointerEventData eventData)
     {
-
         //16代表本线索的id，在Assets/config/item文件中查看每个线索的id
         this.clueInfo = GameObject.Find("Canvas").GetComponent<GameUI>().findClue(14);
 

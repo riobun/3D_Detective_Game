@@ -4238,8 +4238,10 @@ MonoBehaviour:
   sceneDislay: {fileID: 4701134623185045582}
   clueDislay: {fileID: 4701134623809952346}
   truthDisplay: {fileID: 0}
-  cluePanel: {fileID: 0}
   helpDisplay: {fileID: 6550141613190645514}
+  cluePanel: {fileID: 0}
+  clueTitle: {fileID: 0}
+  clueDetail: {fileID: 0}
 --- !u!114 &6167698556183808722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5352,8 +5354,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 104}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 2.0413, y: 104}
+  m_SizeDelta: {x: 183.13, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4701134623368819236
 CanvasRenderer:

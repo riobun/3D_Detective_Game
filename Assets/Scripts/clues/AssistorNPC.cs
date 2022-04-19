@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class AssistorNPC : MonoBehaviour
+public class AssistorNPC : MonoBehaviour, IPointerClickHandler
 {
     private GameObject panel;
     private GameObject title;
@@ -16,9 +17,13 @@ public class AssistorNPC : MonoBehaviour
 
     }
 
-    public void OnMouseDown()
+    // Update is called once per frame
+    void Update()
     {
 
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
         //16代表本线索的id，在Assets/config/item文件中查看每个线索的id
         this.clueInfo = GameObject.Find("Canvas").GetComponent<GameUI>().findClue(3);
 
@@ -29,11 +34,5 @@ public class AssistorNPC : MonoBehaviour
 
         this.panel = GameObject.Find("Canvas").GetComponent<GameUI>().cluePanel;
         this.panel.gameObject.SetActive(true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
