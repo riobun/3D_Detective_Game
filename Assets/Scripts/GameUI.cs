@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameUI : MonoBehaviour
+public class GameUI : MonoBehaviourPunCallbacks
 {
     public GameObject bookDisplay;
     public GameObject sceneDislay;
@@ -17,6 +19,11 @@ public class GameUI : MonoBehaviour
     public GameObject clueDetail;
 
     private List<bagItem> bagItemList;
+
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +39,16 @@ public class GameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (LabManager.Instance.findlab)
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (LabManager.Instance.findlab && scene.name!="End")
         {
             GameObject lab1 = sceneDislay.transform.Find("labButton").gameObject;
             GameObject lab2 = clueDislay.transform.Find("right/toggleGroup/lab").gameObject;
             if (!lab1.activeSelf)
             {
                 lab1.SetActive(true);
+                this.photonView.RPC("otherFindLab", RpcTarget.All);
             }
             if (!lab2.activeSelf)
             {
@@ -46,12 +56,18 @@ public class GameUI : MonoBehaviour
             }
         }
 
-        Scene scene = SceneManager.GetActiveScene();
+        
         if(scene.name == "Hospital" && this.bagItemList[18].isFind == 0)
         {
             Invoke("findAutopsy", 1);
         }
         
+    }
+
+    [PunRPC]
+    public void otherFindLab()
+    {
+        LabManager.Instance.findlab = true;
     }
 
     private void findAutopsy()
@@ -60,6 +76,8 @@ public class GameUI : MonoBehaviour
         this.clueTitle.GetComponent<Text>().text = this.bagItemList[18].name;
         this.clueDetail.GetComponent<Text>().text = this.bagItemList[18].desc;
         this.cluePanel.gameObject.SetActive(true);
+
+        this.photonView.RPC("otherFindClue", RpcTarget.All, 19);
     }
 
     public void activeBook()
@@ -130,8 +148,15 @@ public class GameUI : MonoBehaviour
         List<string> itemInfo = new List<string>();
         itemInfo.Add(this.bagItemList[id - 1].name);
         itemInfo.Add(this.bagItemList[id - 1].desc);
-        //Debug.Log(itemInfo[0]);
-        //Debug.Log(itemInfo[1]);
+
+        this.photonView.RPC("otherFindClue", RpcTarget.All, id);
         return itemInfo;
     }
+
+    [PunRPC]
+    public void otherFindClue(int id)
+    {
+        this.bagItemList[id - 1].isFind = 1;
+    }
+
 }

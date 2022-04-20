@@ -55,7 +55,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
 
-        if (PhotonNetwork.CurrentRoom.PlayerCount > 1 && PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 0 && PhotonNetwork.IsMasterClient)
         {
             
             playBtn.SetActive(true);
