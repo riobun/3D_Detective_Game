@@ -16,7 +16,7 @@ public class hospital_door : MonoBehaviour
     {
         
         LabManager.Instance.findlab = true;
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene("Lab");
     }
 
     // Update is called once per frame

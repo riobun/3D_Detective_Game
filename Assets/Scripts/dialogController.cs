@@ -31,7 +31,7 @@ public class dialogController : MonoBehaviour
         if (flowchart.GetBooleanVariable("next"))
         {            
             flowchart.SetBooleanVariable("next", false);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("DinnerHall");
         }
     }
 }

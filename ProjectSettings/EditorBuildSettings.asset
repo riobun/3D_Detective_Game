@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: 22e180a3af2e75d4ea08e18cd0a1d99a
+  - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 30e59d6b1f4d0ee4bb0fbd38c4f153bc
   - enabled: 1
@@ -29,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ZhenBoss.unity
     guid: e9fe83992bf0c3546b8ba56fd4628a1d
+  - enabled: 1
+    path: Assets/Scenes/Room.unity
+    guid: f08c40363c6a29b41bde9451803898c7
   m_configObjects: {}
