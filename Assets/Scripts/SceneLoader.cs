@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class SceneLoader : MonoBehaviour
+public class SceneLoader : MonoBehaviourPunCallbacks
 {
     public GameObject eventObj;
     private Scene scene;
@@ -21,6 +23,11 @@ public class SceneLoader : MonoBehaviour
     public Animator animator;
 
     public GameObject sceneDisplay;
+
+    private int playerNum = -1;
+    private int alreadyReadyPlayerNum = 0;
+
+    private bool readyToNext = true;
 
 
     // Start is called before the first frame update
@@ -39,10 +46,49 @@ public class SceneLoader : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (readyToNext && playerNum == alreadyReadyPlayerNum)
+        {
+            readyToNext = false;
+            GameObject.Find("Canvas").GetComponent<GameUI>().disactiveRemindUI();
+            StartCoroutine(LoadScene("End"));
+        }
+
+        if (PhotonNetwork.CountOfPlayers > playerNum)
+        {
+            playerNum = PhotonNetwork.CountOfPlayers;
+        }
+    }
+
     private void ToNext()
     {
-        StartCoroutine(LoadScene("End"));
+        GameObject.Find("Canvas").GetComponent<GameUI>().disactiveNext();
+        GameObject.Find("Canvas").GetComponent<GameUI>().activeRemindUI();
+        
+        //Debug.Log("playerNum:" + playerNum);
+        this.photonView.RPC("sendReadyMessage", RpcTarget.All);
+        //Debug.Log("send∫Û alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);
+        //StartCoroutine(LoadScene("End"));
+
     }
+
+    [PunRPC]
+    public void sendReadyMessage()
+    {
+        //Debug.Log("send«∞ alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);
+
+        this.alreadyReadyPlayerNum += 1;
+        //Debug.Log("+1∫Û alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);
+
+    }
+
+    /*[PunRPC]
+    public void disactiveReadyUI()
+    {
+        readyToNext = false;
+        GameObject.Find("Canvas").GetComponent<GameUI>().disactiveRemindUI();
+    }*/
 
     private void ToDinnerHall()
     {
@@ -107,13 +153,6 @@ public class SceneLoader : MonoBehaviour
             Destroy(this.gameObject);
             Destroy(this.eventObj);
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
- 
 
     }
 

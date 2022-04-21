@@ -18,6 +18,9 @@ public class GameUI : MonoBehaviourPunCallbacks
     public GameObject clueTitle;
     public GameObject clueDetail;
 
+    public GameObject nextBtn;
+    public GameObject remindUI;
+
     private List<bagItem> bagItemList;
 
     private void Awake()
@@ -55,9 +58,17 @@ public class GameUI : MonoBehaviourPunCallbacks
                 lab2.SetActive(true);
             }
         }
+        else if(LabManager.Instance.findlab && scene.name == "End")
+        {
+            GameObject lab2 = clueDislay.transform.Find("right/toggleGroup/lab").gameObject;
+            if (!lab2.activeSelf)
+            {
+                lab2.SetActive(true);
+            }
+        }
 
-        
-        if(scene.name == "Hospital" && this.bagItemList[18].isFind == 0)
+
+        if (scene.name == "Hospital" && this.bagItemList[18].isFind == 0)
         {
             Invoke("findAutopsy", 1);
         }
@@ -78,6 +89,21 @@ public class GameUI : MonoBehaviourPunCallbacks
         this.cluePanel.gameObject.SetActive(true);
 
         this.photonView.RPC("otherFindClue", RpcTarget.All, 19);
+    }
+
+    public void activeRemindUI()
+    {
+        remindUI.SetActive(true);
+    }
+
+    public void disactiveRemindUI()
+    {
+        remindUI.SetActive(false);
+    }
+
+    public void disactiveNext()
+    {
+        nextBtn.SetActive(false);
     }
 
     public void activeBook()
