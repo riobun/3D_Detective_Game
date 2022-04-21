@@ -22,7 +22,7 @@ public class dialogController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        
+
     }
 
     // Update is called once per frame
@@ -46,6 +46,7 @@ public class dialogController : MonoBehaviourPunCallbacks
             flowchart.SetBooleanVariable("next", false);
             player.SetActive(false);
             readyUI.SetActive(true);
+            playerNum = PhotonNetwork.CurrentRoom.PlayerCount;
             Debug.Log("playerNum:" + playerNum);
             this.photonView.RPC("sendReadyMessage", RpcTarget.All);
             Debug.Log("sendºó alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);
@@ -59,11 +60,6 @@ public class dialogController : MonoBehaviourPunCallbacks
 
             PhotonNetwork.LoadLevel("DinnerHall");
 
-        }
-
-        if(PhotonNetwork.CountOfPlayers > playerNum)
-        {
-            playerNum = PhotonNetwork.CountOfPlayers;
         }
     }
 

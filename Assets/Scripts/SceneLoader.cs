@@ -33,6 +33,7 @@ public class SceneLoader : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+
         GameObject.DontDestroyOnLoad(this.gameObject);
         GameObject.DontDestroyOnLoad(this.eventObj);
 
@@ -54,18 +55,15 @@ public class SceneLoader : MonoBehaviourPunCallbacks
             GameObject.Find("Canvas").GetComponent<GameUI>().disactiveRemindUI();
             StartCoroutine(LoadScene("End"));
         }
-
-        if (PhotonNetwork.CountOfPlayers > playerNum)
-        {
-            playerNum = PhotonNetwork.CountOfPlayers;
-        }
     }
 
     private void ToNext()
     {
         GameObject.Find("Canvas").GetComponent<GameUI>().disactiveNext();
         GameObject.Find("Canvas").GetComponent<GameUI>().activeRemindUI();
-        
+        playerNum = PhotonNetwork.CurrentRoom.PlayerCount;
+
+
         //Debug.Log("playerNum:" + playerNum);
         this.photonView.RPC("sendReadyMessage", RpcTarget.All);
         //Debug.Log("sendºó alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);

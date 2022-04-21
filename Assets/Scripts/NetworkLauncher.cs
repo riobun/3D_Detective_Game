@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
+
 
 public class NetworkLauncher : MonoBehaviourPunCallbacks
 {
@@ -63,8 +65,8 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
-        
-        PhotonNetwork.LoadLevel("Room");
+        SceneManager.LoadScene("Room");
+        //PhotonNetwork.LoadLevel("Room");
     }
 
 
