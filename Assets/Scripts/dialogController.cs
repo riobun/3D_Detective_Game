@@ -2,6 +2,7 @@ using Fungus;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
@@ -14,6 +15,8 @@ public class dialogController : MonoBehaviourPunCallbacks
     public GameObject readyUI;
     public GameObject player;
 
+    public GameObject stateUI;
+
     private int playerNum = -1;
     private int alreadyReadyPlayerNum = 0;
 
@@ -22,6 +25,12 @@ public class dialogController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
+
+    }
+
+    private void Start()
+    {
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】欢迎进入游戏剧本环节！你可以通过鼠标点击来阅读人物剧本。";
 
     }
 
@@ -70,6 +79,8 @@ public class dialogController : MonoBehaviourPunCallbacks
 
         this.alreadyReadyPlayerNum += 1;
         Debug.Log("+1后 alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);
+
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】当前已有"+ this.alreadyReadyPlayerNum +"位玩家准备进入下一阶段！";
 
     }
 

@@ -78,7 +78,7 @@ public class SceneLoader : MonoBehaviourPunCallbacks
 
         this.alreadyReadyPlayerNum += 1;
         //Debug.Log("+1ºó alreadyReadyPlayerNum:" + alreadyReadyPlayerNum);
-
+        GameObject.Find("Canvas").GetComponent<GameUI>().updateStateUI(this.alreadyReadyPlayerNum);
     }
 
     /*[PunRPC]

@@ -21,6 +21,8 @@ public class GameUI : MonoBehaviourPunCallbacks
     public GameObject nextBtn;
     public GameObject remindUI;
 
+    public GameObject stateUI;
+
     private List<bagItem> bagItemList;
 
     private void Awake()
@@ -35,8 +37,8 @@ public class GameUI : MonoBehaviourPunCallbacks
         this.bagItemList = NewItemManager.Instance.bagItemList;
 
         //cluePanel.SetActive(true);
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】欢迎进入游戏搜证环节！你可以点击帮助按钮查看该环节的帮助信息。";
 
-        
     }
 
     // Update is called once per frame
@@ -44,7 +46,7 @@ public class GameUI : MonoBehaviourPunCallbacks
     {
         Scene scene = SceneManager.GetActiveScene();
 
-        if (LabManager.Instance.findlab && scene.name!="End")
+        if (LabManager.Instance.findlab)
         {
             GameObject lab1 = sceneDislay.transform.Find("labButton").gameObject;
             GameObject lab2 = clueDislay.transform.Find("right/toggleGroup/lab").gameObject;
@@ -53,14 +55,6 @@ public class GameUI : MonoBehaviourPunCallbacks
                 lab1.SetActive(true);
                 this.photonView.RPC("otherFindLab", RpcTarget.All);
             }
-            if (!lab2.activeSelf)
-            {
-                lab2.SetActive(true);
-            }
-        }
-        else if(LabManager.Instance.findlab && scene.name == "End")
-        {
-            GameObject lab2 = clueDislay.transform.Find("right/toggleGroup/lab").gameObject;
             if (!lab2.activeSelf)
             {
                 lab2.SetActive(true);
@@ -79,6 +73,14 @@ public class GameUI : MonoBehaviourPunCallbacks
     public void otherFindLab()
     {
         LabManager.Instance.findlab = true;
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】已有玩家发现隐藏地图：医学实验室。";
+
+    }
+
+    public void updateStateUI(int num)
+    {
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】当前已有" + num + "位玩家准备进入下一阶段！";
+
     }
 
     private void findAutopsy()
@@ -183,6 +185,8 @@ public class GameUI : MonoBehaviourPunCallbacks
     public void otherFindClue(int id)
     {
         this.bagItemList[id - 1].isFind = 1;
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】已有玩家找到线索" + "：" + this.bagItemList[id - 1].name + "。";
+
     }
 
 }

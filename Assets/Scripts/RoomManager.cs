@@ -12,6 +12,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject playBtn;
     public GameObject playerNamePrefab;
     public Transform gridLayOut;
+    public GameObject stateUI;
 
     private int preRoomPlayerCount = 0;
 
@@ -21,6 +22,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         roomName.text = "当前房间：" + PhotonNetwork.CurrentRoom.Name;
 
         PhotonNetwork.AutomaticallySyncScene = true;
+        stateUI.GetComponentInChildren<Text>().text = "【状态信息】已成功加入房间"+ PhotonNetwork.CurrentRoom.Name + "，等待房主开始游戏";
+
 
         /*if (photonView.IsMine)
         {
