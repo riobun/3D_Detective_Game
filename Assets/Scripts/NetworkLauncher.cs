@@ -38,6 +38,11 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks
 
     public void OKButton()
     {
+        if (playerName.text.Length < 1)
+        {
+            stateUI.GetComponentInChildren<Text>().text = "【状态信息】昵称不能为空哦！";
+            return;
+        }
         stateUI.GetComponentInChildren<Text>().text = "【状态信息】已成功创建玩家昵称";
 
         nameUI.SetActive(false);

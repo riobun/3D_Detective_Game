@@ -15,32 +15,21 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject stateUI;
 
     private int preRoomPlayerCount = 0;
+    private bool isPlayActive = false;
 
     private void Awake()
     {
-        //nameText.text = PhotonNetwork.NickName;
         roomName.text = "当前房间：" + PhotonNetwork.CurrentRoom.Name;
 
         PhotonNetwork.AutomaticallySyncScene = true;
         stateUI.GetComponentInChildren<Text>().text = "【状态信息】已成功加入房间"+ PhotonNetwork.CurrentRoom.Name + "，等待房主开始游戏";
-
-
-        /*if (photonView.IsMine)
-        {
-            nameText.text = PhotonNetwork.NickName;
-        }
-        else
-        {
-            nameText.text = photonView.Owner.NickName;
-        }*/
-
-
     }
 
     private void Update()
     {
         if (preRoomPlayerCount != PhotonNetwork.CurrentRoom.PlayerCount)
         {
+            preRoomPlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
             for (int i = 0; i < gridLayOut.childCount; i++)
             {
                 Destroy(gridLayOut.GetChild(i).gameObject);
@@ -58,9 +47,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
 
-        if (PhotonNetwork.CurrentRoom.PlayerCount > 0 && PhotonNetwork.IsMasterClient)
+        if (!isPlayActive && PhotonNetwork.CurrentRoom.PlayerCount > 0 && PhotonNetwork.IsMasterClient)
         {
-            
+            isPlayActive = true;
             playBtn.SetActive(true);
         }
     }
